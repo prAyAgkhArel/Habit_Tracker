@@ -1,9 +1,11 @@
 import requests
+from datetime import datetime
+
 
 username = "prayag"
 token="ahienfeofiefned"
 pixela_endpoint="https://pixe.la/v1/users"
-
+graphID = "graph1"
 # parameters for creating a user in pixela
 
 # user_params ={
@@ -41,10 +43,21 @@ headers ={
     "X-USER-TOKEN":token
 }
 
-pixel_parameters = {
-    "date":"20240925",
-    "quantity":"20",
+today = datetime.now().strftime("%Y%m%d")
 
+# strftime method of datetime module formats the date as according to directives
+# used as argument, here %Y=>2024, %m=>11, %d=>30
+
+print(today)
+
+pixel_parameters = {
+    "date":today,
+    "quantity":"20",
 }
-response = requests.post(url=f"{pixela_endpoint}/{username}/graphs/graph1", json=pixel_parameters, headers=headers)
+# response = requests.post(url=f"{pixela_endpoint}/{username}/graphs/graph1", json=pixel_parameters, headers=headers)
+# print(response.text)
+
+#-----deleting a pixel in pixela-----#
+
+response = requests.delete(url=f"{pixela_endpoint}/{username}/graphs/{graphID}/20241129", headers=headers)
 print(response.text)
